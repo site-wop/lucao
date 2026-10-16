@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- ALTERE AQUI: título da aba do navegador -->
+<title>A Bacia Hidrográfica do Rio Parnaíba</title>
+<style>
+/* =====================================================
+   1. CORES E FONTES — ALTERE AQUI A PALETA DO SITE
+   ===================================================== */
+:root{
+  --verde:#1f4d3a;        /* verde-escuro: títulos, botões, destaques */
+  --verde-medio:#4f8a6a;  /* verde médio: numeração e detalhes */
+  --verde-suave:#e3efe6;  /* verde suave: cartões, divisórias */
+  --borda:#cfe0d4;
+  --fundo:#f8faf7; --card:#fff; --texto:#26302a; --apoio:#56665c; --sobre:#fff;
+  --fonte:Georgia,'Times New Roman',serif;
+  --fonte-ui:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --raio:14px; --sombra:0 1px 2px rgba(25,45,35,.05),0 8px 22px rgba(25,45,35,.07);
+  color-scheme:light;
+}
+
+/* =====================================================
+   2. ESTILOS (normalmente não é preciso editar)
+   ===================================================== */
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font:1.0625rem/1.75 var(--fonte);background:var(--fundo);color:var(--texto);overflow-x:hidden}
+img{display:block;max-width:100%}
+h1,h2,h3{line-height:1.2}
+:focus-visible{outline:3px solid var(--verde-medio);outline-offset:2px}
+#progresso{position:fixed;top:0;left:0;height:4px;width:0;background:var(--verde-medio);z-index:90}
+/* barra superior com o ícone de três linhas */
+#barra{position:fixed;top:0;left:0;right:0;height:60px;display:flex;align-items:center;gap:12px;padding:0 14px;background:rgba(255,255,255,.95);border-bottom:1px solid var(--borda);font:600 .95rem var(--fonte-ui);color:var(--verde);z-index:70}
+#burger{width:42px;height:42px;border:1px solid var(--borda);border-radius:10px;background:var(--card);cursor:pointer;display:grid;place-content:center;gap:5px}
+#burger i{display:block;width:20px;height:2px;background:var(--verde);border-radius:2px}
+#menu{position:fixed;top:60px;bottom:0;left:0;width:300px;max-width:86vw;padding:18px 14px 28px;overflow:auto;background:var(--card);border-right:1px solid var(--borda);box-shadow:var(--sombra);font-family:var(--fonte-ui);z-index:80;transform:translateX(-105%);transition:transform .3s;visibility:hidden}
+#menu.aberto{transform:none;visibility:visible}
+#links a{display:block;padding:10px 12px;margin-bottom:2px;border-left:3px solid transparent;border-radius:0 8px 8px 0;color:var(--apoio);font-size:.92rem;line-height:1.4;text-decoration:none}
+#links a:hover{background:var(--verde-suave)}
+#links a.ativo{background:var(--verde-suave);border-left-color:var(--verde);color:var(--verde);font-weight:600}
+#links b{margin-right:.4em;opacity:.65}
+#veu{display:none;position:fixed;inset:60px 0 0;background:rgba(0,0,0,.35);z-index:75}
+#veu.on{display:block}
+#subir{position:fixed;right:18px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:46px;height:46px;border:0;border-radius:50%;background:var(--verde);color:var(--sobre);font-size:1.2rem;cursor:pointer;box-shadow:var(--sombra);opacity:0;pointer-events:none;transition:opacity .3s;z-index:60}
+#subir.on{opacity:1;pointer-events:auto}
+main{padding-top:60px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;max-width:1160px;margin:0 auto;padding:56px clamp(20px,5vw,60px);position:relative}
+.tag{display:inline-block;margin-bottom:16px;padding:5px 14px;border-radius:99px;background:var(--verde-suave);color:var(--verde);font:600 .75rem var(--fonte-ui);letter-spacing:.12em;text-transform:uppercase}
+.hero h1{font-size:clamp(2.1rem,5vw,3.7rem);margin-bottom:16px;color:var(--verde)}
+.hero .sub{font-size:1.2rem;font-weight:700}.hero .desc{color:var(--apoio)}
+.btn{display:inline-block;margin-top:26px;padding:13px 24px;border-radius:var(--raio);background:var(--verde);color:var(--sobre);font:600 .95rem var(--fonte-ui);text-decoration:none}
+.btn:hover{opacity:.88}
+.onda{display:block;width:100%;height:46px;color:var(--verde-suave)}
+.cap{max-width:1000px;margin:0 auto;padding:76px clamp(20px,5vw,60px) 8px}
+.cap h2{font-size:clamp(1.6rem,3.2vw,2.3rem);color:var(--verde);margin-bottom:12px}
+.cap h2 small{display:block;margin-bottom:6px;color:var(--verde-medio);font:600 .8rem var(--fonte-ui);letter-spacing:.14em}
+.cap h3.sub2{margin:8px 0 14px;font:600 1.05rem var(--fonte-ui);color:var(--verde)}
+.bloco{margin:30px 0}
+.texto p{max-width:66ch;margin-bottom:1em}
+.sep{display:block;width:min(70%,400px);margin:40px auto 0;color:var(--verde-medio);opacity:.5}
+.moldura{border-radius:var(--raio);overflow:hidden;background:var(--verde-suave);box-shadow:var(--sombra)}
+.moldura img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
+.ph{display:grid;place-items:center;min-height:180px;height:100%;padding:16px;border:2px dashed var(--verde);border-radius:var(--raio);color:var(--apoio);font:500 .85rem var(--fonte-ui);text-align:center;word-break:break-all}
+.alto{aspect-ratio:4/5}.largo{aspect-ratio:21/9}.p43{aspect-ratio:4/3}
+figcaption{padding:8px 2px 0;color:var(--apoio);font:.82rem var(--fonte-ui)}
+.dividido{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.dividido.full{grid-template-columns:1fr} /* Faz o texto ocupar a largura total quando não há imagem */
+.dividido.inv figure{order:2}.dividido .moldura{aspect-ratio:4/3}
+.grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{padding:22px;background:var(--card);border:1px solid var(--borda);border-top:4px solid var(--verde);border-radius:var(--raio);box-shadow:var(--sombra)}
+.card:nth-child(even){border-top-color:var(--verde-medio)}
+.card h3{margin-bottom:6px;font-size:1.08rem;color:var(--verde)}
+.card p{color:var(--apoio);font-size:.96rem}
+.num{text-align:center}.num h3{font-size:2.6rem}
+.destaque{padding:22px 26px;background:var(--verde-suave);border-left:5px solid var(--verde);border-radius:var(--raio)}
+.destaque strong{display:block;color:var(--verde);font-family:var(--fonte-ui)}
+.passos{counter-reset:p;display:grid;gap:14px;list-style:none;padding:0;max-width:70ch}
+.passos li{counter-increment:p;display:flex;gap:16px;align-items:flex-start}
+.passos li::before{content:counter(p);flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--verde);color:var(--sobre);font:600 .95rem var(--fonte-ui)}
+.tabela{overflow-x:auto;border-radius:var(--raio);box-shadow:var(--sombra)}
+table{width:100%;border-collapse:collapse;background:var(--card);font:.93rem/1.6 var(--fonte-ui)}
+th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--borda);vertical-align:top}
+th{background:var(--verde);color:var(--sobre)}td:first-child{font-weight:600;min-width:140px}
+/* galerias */
+.galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.galeria.geral{grid-template-columns:1fr;max-width:760px;margin:0 auto}
+.galeria figure{background:var(--card);border:1px solid var(--borda);border-radius:var(--raio);box-shadow:var(--sombra);padding:10px}
+.galeria .moldura{box-shadow:none;aspect-ratio:4/3}
+.galeria figcaption{padding:10px 4px 4px}
+.galeria figcaption b{display:block;color:var(--verde);font-size:.9rem}
+/* lightbox */
+#lb{display:none;position:fixed;inset:0;background:rgba(10,25,18,.92);z-index:100;align-items:center;justify-content:center;flex-direction:column;padding:56px 16px 24px;color:#fff;font-family:var(--fonte-ui)}
+#lb.on{display:flex}
+#lb img{max-width:100%;max-height:78vh;object-fit:contain;border-radius:8px}
+#lbc{margin-top:12px;max-width:70ch;text-align:center;font-size:.9rem}
+#lb button{position:absolute;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:1.6rem;width:46px;height:46px;border-radius:50%;cursor:pointer}
+#lbx{top:12px;right:12px}#lbp{left:10px;top:50%}#lbn{right:10px;top:50%}
+/* identificação acadêmica (rodapé em fluxo normal) */
+footer{margin-top:80px;padding:44px clamp(20px,5vw,60px) calc(env(safe-area-inset-bottom,0px) + 40px);background:var(--verde-suave);border-top:1px solid var(--borda);font:.93rem/1.7 var(--fonte-ui)}
+.rod{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px 32px}
+.rod h2{grid-column:1/-1;font:700 1.3rem var(--fonte);color:var(--verde)}
+.rod h4{margin-bottom:2px;color:var(--verde);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase}
+.rod .todo{grid-column:1/-1}.rod ul{padding-left:1.2em;columns:2 200px}
+.rod .fim{padding-top:16px;border-top:1px solid var(--borda);text-align:center;color:var(--apoio)}
+.grupo{max-width:820px;margin:36px auto 0}
+.grupo .moldura{aspect-ratio:3/2}.grupo figcaption{text-align:center}
+@media(max-width:900px){
+  html{scroll-padding-top:76px}
+  .hero{grid-template-columns:1fr;gap:28px;padding-top:36px}
+  .alto{aspect-ratio:16/10}.dividido{grid-template-columns:1fr}.dividido.inv figure{order:0}
+  .cap{padding-top:58px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="progresso"></div>
+<div id="barra"><button id="burger" aria-label="Abrir ou fechar o menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button><span>Rio Parnaíba</span></div>
+<div id="veu"></div>
+<nav id="menu" aria-label="Navegação por tópicos"><div id="links"></div></nav>
+
+<main>
+<!-- CAPA: edite os textos. Imagem da capa: troque o caminho em src -->
+<header class="hero" id="topo">
+  <div>
+    <span class="tag">Trabalho de Geografia</span>
+    <h1>A Bacia Hidrográfica do Rio Parnaíba</h1>
+    <p class="sub">Instituto Federal do Pará · Campus Óbidos</p>
+    <p class="desc">Curso de Florestas</p>
+    <a class="btn" href="#apresentacao">Começar a leitura ↓</a>
+  </div>
+  <!-- SUBSTITUIR IMAGEM DA CAPA: imagens/capa.jpg -->
+  <figure><div class="moldura alto"><img src="imagemrio.jpg" alt="Rio Parnaíba" onerror="this.outerHTML='<div class=ph>imagens/capa.jpg</div>'"></div><figcaption>Rio Paraíba do Sul · agenciabrasil</figcaption></figure>
+</header>
+<svg class="onda" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 20C150 46 300 0 450 18S750 44 900 20 1100 4 1200 22V46H0Z"/></svg>
+
+<div id="secoes"></div>
+
+<!-- 12. REFERÊNCIAS BIBLIOGRÁFICAS: uma <li> por referência (ABNT) -->
+<div id="sep12"></div>
+
+</main>
+
+<!-- 13. IDENTIFICAÇÃO ACADÊMICA E INTEGRANTES (fica no fim da página, no fluxo normal) -->
+<footer>
+  <div class="rod">
+    <h2><small style="display:block;font:600 .8rem var(--fonte-ui);letter-spacing:.14em;color:var(--verde-medio)"></small>Identificação</h2>
+    <div><h4>Instituição</h4>Instituto Federal do Pará (IFPA)</div>
+    <div><h4>Campus</h4>Óbidos</div>
+    <div><h4>Curso</h4>Florestas</div>
+    <div><h4>Disciplina</h4>Geografia</div>
+    <!-- EDITE: nome do(a) professor(a) -->
+    <div><h4>Professor(a)</h4>Gabriel Renan Neves Barros</div>
+    <div class="todo"><h4>Integrantes</h4>
+      <!-- Para adicionar um integrante, copie uma linha <li>; para remover, apague-a -->
+      <ul>
+        <li>Diogo Levi</li><li>Lucas Gabriel</li><li>Pietro Ferreira</li><li>José Victor</li>
+        <li>Thiago Bruno</li><li>Marcos Yure</li><li>Gledison Renei</li>
+      </ul>
+    </div>
+    <p class="fim todo">Óbidos – Pará · 2026</p>
+  </div>
+  <!-- FOTO DO GRUPO COM O PROFESSOR (último elemento visual): troque o caminho em src e a legenda -->
+  <figure class="grupo">
+    <div class="moldura"><img src="" alt="Grupo com o professor" onerror="this.outerHTML='<div class=ph>Foto do grupo </div>'"></div>
+    <figcaption></figcaption>
+  </figure>
+</footer>
+
+<button id="subir" aria-label="Voltar ao topo">↑</button>
+<div id="lb" role="dialog" aria-modal="true" aria-label="Imagem ampliada"><button id="lbx" aria-label="Fechar">×</button><button id="lbp" aria-label="Anterior">‹</button><img  alt=""><p id="lbc"></p><button id="lbn" aria-label="Próxima">›</button></div>
+
+<script>
+/* ===========================================================
+   CONTEÚDO — edite aqui textos, títulos, imagens e legendas.
+   IMAGENS: troque o caminho (ex.: "imagens/rio-parnaiba.jpg"). Se o arquivo não existir,
+   aparece uma caixa tracejada mostrando o caminho esperado.
+   Componentes: texto · dividido (lado:"direita" inverte) · banner · cards · numeros · tabela · passos · destaque · galeria
+   =========================================================== */
+const LEG = "[Legenda editável] · Crédito: [fonte]"; // legenda padrão: troque em cada imagem
+
+const SECOES = [
+ /* 1 — APRESENTAÇÃO E INTRODUÇÃO */
+ { id:"apresentacao", menu:"Introdução", titulo:"Introdução", blocos:[
+   {tipo:"dividido", img:"parai.jpg", legenda:"Rio Paraíba do Sul em Itabaiana · Créditos: Wikipédia", paragrafos:[
+     "Desenvolvido por estudantes do curso Técnico em Florestas do Instituto Federal do Pará (Campus Óbidos), este trabalho analisa a Bacia Hidrográfica do Rio Parnaíba sob a perspectiva geográfica e ambiental.",
+     "Localizada estrategicamente no Nordeste brasileiro, a bacia representa um ecossistema vital para a região. Ao longo deste estudo, exploramos sua abrangência territorial, dinâmicas climáticas e de relevo, a diversidade de formações vegetais, os principais usos do solo e o papel determinante da cobertura florestal na manutenção dos recursos hídricos. Além disso, abordamos os severos impactos da degradação ambiental e as estratégias em curso para sua conservação e recuperação."]},
+   /* GALERIA GERAL */
+   {tipo:"galeria", itens:[
+     ]}]},
+
+ /* 2 — LOCALIZAÇÃO */
+ { id:"localizacao", menu:"Localização e estados", titulo:"Localização e Abrangência Territorial", blocos:[
+   {tipo:"dividido", lado:"direita", img:"localização.jpg", legenda:"mapa geografico da bacia . crédito: ResearchGate", paragrafos:[
+     "Situada na Região Nordeste do Brasil, a Bacia do Parnaíba estende-se por uma área que varia entre 334 mil e 344 mil quilômetros quadrados.",
+     "Seu território abriga cerca de 5 milhões de habitantes, distribuídos em centenas de municípios que dependem diretamente de suas águas para o desenvolvimento socioeconômico."]},
+   {tipo:"numeros", itens:[["75%","do estado do Piauí"],["20%","do estado do Maranhão"],["5%","do extremo oeste do Ceará"]]}]},
+
+ /* 3 — RIO PRINCIPAL */
+ { id:"rio", menu:"Rio, afluentes, nascente e foz", titulo:"Rio Principal, Afluentes, Nascente e Foz", blocos:[
+   {tipo:"dividido", img:"rio1.jpg", legenda:"Foto do RIO Paraíba do sul . crédito:Pedro Andrade", paragrafos:[
+     "Com mais de 1.400 quilômetros de extensão, o Rio Parnaíba — carinhosamente apelidado de 'Velho Monge' — é o maior rio genuinamente nordestino e o quinto maior do país, constituindo a artéria principal de toda a bacia."]},
+   {tipo:"cards", itens:[
+     ["Nascente","Localizada na Chapada das Mangabeiras, na tríplice divisa entre Piauí, Maranhão, Tocantins e Bahia."],
+     ["Afluentes","Alimentado por afluentes de grande porte, como os rios Gurgueia, Canindé, Poti, Longá, Uruçuí-Preto e Balsas."],
+     ["Foz","Desemboca no Oceano Atlântico formando o Delta do Parnaíba — um dos raros deltas em mar aberto das Américas, na divisa entre Piauí e Maranhão."]]}]},
+
+ /* 4 — RELEVO E CLIMA */
+ { id:"relevo", menu:"Relevo e clima", titulo:"Aspectos Físico-Naturais: Relevo e Clima", blocos:[
+   {tipo:"banner", img:"", legenda:"Foto do RIO Paraíba do sul . crédito:Pedro Andrade"},
+   {tipo:"cards", itens:[
+     ["Relevo","Desenvolve-se sobre uma ampla bacia sedimentar, caracterizada por chapadas e planaltos nas cabeceiras, depressões interplanálticas e extensas planícies fluviais e costeiras em direção à foz."],
+     ["Clima","Varia do tropical úmido ao semiárido, marcado por temperaturas elevadas o ano todo e um regime pluviométrico bem definido, alternando entre uma estação chuvosa curta e um período de estiagem severa."]]}]},
+
+ /* 5 — FORMAÇÕES VEGETAIS */
+ { id:"vegetacao", menu:"Formações vegetais", titulo:"Diversidade Vegetal e Zonas de Transição", blocos:[
+   {tipo:"dividido", lado:"direita", img:"vale.jpg", legenda:"Vale do Paraíba . crédito: Wikipedia", paragrafos:["Devido à sua extensão, a bacia atua como um corredor ecológico e uma zona de transição entre três grandes biomas brasileiros."]},
+   {tipo:"cards", itens:[
+     ["Cerrado","Predomina no Alto Parnaíba (sul da bacia), com vegetação savânica e alta biodiversidade."],
+     ["Caatinga","Ocupa o Médio e Baixo Parnaíba (regiões central e norte), adaptada ao estresse hídrico do semiárido."],
+     ["Mata dos Cocais","Ecótono marcado pela presença marcante de palmeiras nativas, especialmente o babaçu e a carnaúba."],
+     ["Manguezais e Costa","Formações de ecossistemas estuarinos e florestas de mangue na foz e faixa litorânea."]]}]},
+
+ /* 6 — USOS DA TERRA */
+ { id:"usos", menu:"Usos da terra", titulo:"Uso do Solo e Atividades Econômicas", blocos:[
+   {tipo:"banner", img:"", },
+   {tipo:"texto", paragrafos:["A ocupação do solo reflete as diferentes aptidões regionais ao longo da bacia:"]},
+   {tipo:"tabela", cab:["Região / Finalidade","Atividade Principal"], linhas:[
+     ["Porção Sul (MATOPIBA)","Agronegócio em larga escala focado no cultivo intensivo de soja, milho e algodão."],
+     ["Médio e Baixo Parnaíba","Pecuária extensiva, agricultura familiar de subsistência, extrativismo vegetal, pesca artesanal e ecoturismo."],
+     ["Abastecimento Público","Fonte essencial de captação de água para centros urbanos de grande porte, como Teresina (PI) e Timon (MA)."],
+     ["Geração de Energia","Produção hidrelétrica por meio do reservatório e da Usina Hidrelétrica de Boa Esperança."]]}]},
+
+ /* 7 — CICLO DA ÁGUA */
+ { id:"ciclo", menu:"Cobertura florestal e ciclo da água", titulo:"O Papel da Cobertura Florestal no Ciclo Hidrológico", blocos:[
+   {tipo:"dividido", img:"agau.jpg", legenda:"Ciclo da água . Crédito: Toda Máteria", paragrafos:["A conservação das florestas e da cobertura vegetal nativa é o fator central para a regulação do fluxo de água na bacia."]},
+   {tipo:"passos", itens:[
+     "O sistema radicular das árvores aumenta a porosidade do solo, facilitando a infiltração das águas das chuvas.",
+     "A água infiltrada recarrega os aquíferos subterrâneos, garantindo o perenismo das nascentes e o vazão constante dos rios durante a seca.",
+     "A copa das árvores e a serapilheira amortecem o impacto das gotas de chuva, reduzindo o escoamento superficial e prevenindo a erosão."]} ]},
+
+ /* 8 — MATAS CILIARES E NASCENTES */
+ { id:"matas", menu:"Matas ciliares e nascentes", titulo:"Diagnóstico das Matas Ciliares e Nascentes", blocos:[
+   {tipo:"dividido", lado:"direita", img:"ciliar.jpg", legenda:"Exemplo de Mata Ciliar . Crédito: Toda Máteria", paragrafos:["Apesar de sua importância ecológica, as formações ripárias e as áreas de preservação permanente (APPs) ao entorno das nascentes sofrem forte pressão antrópica."]},
+   {tipo:"destaque", rotulo:"Principais Ameaças", texto:"A remoção desordenada da vegetação para dar lugar a pastagens, lavouras e à expansão urbana descontrolada desprotege os cursos d'água, provocando a redução do fluxo das nascentes e o desmoronamento das margens."}]},
+
+ /* 9 — DESMATAMENTO, QUEIMADAS, EROSÃO E ASSOREAMENTO */
+ { id:"degradacao", menu:"Desmatamento, queimadas, erosão", titulo:"Impactos Ambientais: Desmatamento, Erosão e Assoreamento", blocos:[
+   {tipo:"banner", img:"asso.jpg", legenda:"Rio Taperoá, em São João do Cariri, completamente assoreado . Crédito:ResearchGate "},
+   {tipo:"passos", itens:[
+     "O avanço do desmatamento e o uso indiscriminado de queimadas desnudam o solo e destroem sua estrutura biológica.",
+     "Exposto às chuvas intensas, o solo desprotegido sofre erosão laminar e em sulcos, sendo arrastado para dentro dos rios.",
+     "O acúmulo de sedimentos no leito (assoreamento) reduz drasticamente a profundidade do rio e sua capacidade de navegação.",
+     "Surgem extensos bancos de areia — chamados regionalmente de 'coroas' —, visíveis em diversos trechos, inclusive na travessia urbana de Teresina."]} ]},
+
+ /* 10 — AÇÕES DE CONSERVAÇÃO */
+ { id:"acoes", menu:"Conservação e recuperação", titulo:"Ações de Conservação, Gestão e Recuperação", blocos:[
+   {tipo:"dividido", img:"", legenda:LEG, paragrafos:["Buscando mitigar a degradação e assegurar a sustentabilidade hídrica, diversas iniciativas públicas e comunitárias vêm sendo implantadas na bacia."]},
+   {tipo:"cards", itens:[
+     ["Unidades de Conservação","Criação de áreas protegidas de suma importância, como o Parque Nacional das Nascentes do Rio Parnaíba e a APA do Delta do Parnaíba."],
+     ["Gestão de Recursos Hídricos","Atuação do Comitê da Bacia Hidrográfica do Rio Parnaíba (CBH Parnaíba) no planejamento e mediação dos usos da água."],
+     ["Restauração Florestal","Projetos focado no reflorestamento de matas ciliares e recuperação de nascentes degradadas."],
+     ["Educação e Fiscalização","Fortalecimento da conscientização ambiental com as comunidades locais e intensificação da fiscalização contra crimes ambientais."]]}]},
+
+ /* 11 — MAQUETE / PROJETO FÍSICO */
+ { id:"maquete", menu:"Maquete", titulo:"Maquete do Grupo", blocos:[
+   {tipo:"cards", itens:[
+     ["Descrição do projeto","[Descreva a maquete: o que ela representa.]"],
+     ["Finalidade","[Explique o objetivo da maquete no trabalho.]"],
+     ["Materiais utilizados","[Liste os materiais usados na construção.]"],
+     ["Detalhes relevantes","[Informe medidas, escala, cores, legendas ou outros detalhes.]"]]},
+   {tipo:"subtitulo", texto:"Fotografia geral da maquete"},
+   {tipo:"galeria", geral:true, itens:[["imagens/maquete-geral.jpg","Visão geral da maquete","[Legenda explicativa] · Crédito: [fonte]"]]},
+   {tipo:"subtitulo", texto:"Fotografias aproximadas das partes"},
+   {tipo:"galeria", itens:[
+     ["","",""],
+     ["","",""],
+     ["","",""]]},
+   {tipo:"subtitulo", texto:"Detalhes dos componentes e elementos representados"},
+   {tipo:"galeria", itens:[
+     ["","",""],
+     ["","",""],
+     ["","",""]]}]}
+];
+
+/* ===== COMPONENTES (não precisa editar) ===== */
+const L=(a,f)=>a.map(f).join(""), $=s=>document.querySelector(s);
+const fig=(s,leg="",c="")=>`<figure><div class="moldura ${c}"><img src="${s}" alt="${leg.split(' · ')[0]}" loading="lazy" onerror="this.outerHTML='<div class=ph>'+this.getAttribute('src')+'</div>'"></div>${leg?`<figcaption>${leg}</figcaption>`:""}</figure>`;
+const COMP={
+ texto:b=>`<div class="texto">${L(b.paragrafos,p=>`<p>${p}</p>`)}</div>`,
+ dividido:b=>{
+   // Se não houver imagem preenchida, exibe apenas o texto ocupando toda a largura
+   if(!b.img || b.img.trim() === "") {
+     return `<div class="dividido full">${COMP.texto(b)}</div>`;
+   }
+   return `<div class="dividido${b.lado=="direita"?" inv":""}">${fig(b.img,b.legenda)}${COMP.texto(b)}</div>`;
+ },
+ banner:b=>{
+   // Se o banner não tiver imagem, ele nem renderiza o espaço vazio
+   if(!b.img || b.img.trim() === "") return "";
+   return fig(b.img,b.legenda,"largo");
+ },
+ cards:b=>`<div class="grade">${L(b.itens,i=>`<article class="card"><h3>${i[0]}</h3><p>${i[1]}</p></article>`)}</div>`,
+ numeros:b=>`<div class="grade">${L(b.itens,i=>`<article class="card num"><h3>${i[0]}</h3><p>${i[1]}</p></article>`)}</div>`,
+ tabela:b=>`<div class="tabela"><table><thead><tr>${L(b.cab,c=>`<th>${c}</th>`)}</tr></thead><tbody>${L(b.linhas,l=>`<tr>${L(l,c=>`<td>${c}</td>`)}</tr>`)}</tbody></table></div>`,
+ passos:b=>`<ol class="passos">${L(b.itens,i=>`<li>${i}</li>`)}</ol>`,
+ destaque:b=>`<aside class="destaque"><strong>${b.rotulo}</strong>${b.texto}</aside>`,
+ subtitulo:b=>`<h3 class="sub2">${b.texto}</h3>`,
+ galeria:b=>`<div class="galeria${b.geral?" geral":""}">${L(b.itens,i=>`<figure><div class="moldura p43"><img src="${i[0]}" alt="${i[1]}" loading="lazy" onerror="this.outerHTML='<div class=ph>'+this.getAttribute('src')+'</div>'"></div><figcaption><b>${i[1]}</b>${i[2]}</figcaption></figure>`)}</div>`
+};
+const SEP=`<svg class="sep" viewBox="0 0 520 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M0 12C43-2 87-2 130 12S217 26 260 12 347-2 390 12 477 26 520 12"/></svg>`;
+const num=i=>String(i+1).padStart(2,"0");
+$("#secoes").innerHTML=SECOES.map((s,i)=>`<section class="cap" id="${s.id}"><h2><small>${num(i)}</small>${s.titulo}</h2>${L(s.blocos,b=>`<div class="bloco">${COMP[b.tipo](b)}</div>`)}</section>`).join(SEP);
+$("#sep12").innerHTML=SEP;
+$("#links").innerHTML=L(SECOES,(s,i)=>`<a href="#${s.id}"><b>${num(i)}</b>${s.menu}</a>`);
+
+/* ===== COMPORTAMENTO: menu, rolagem, destaque da seção, topo ===== */
+const menu=$("#menu"),veu=$("#veu"),bt=$("#burger"),subir=$("#subir"),links=[...document.querySelectorAll("#links a")];
+function abrir(o){menu.classList.toggle("aberto",o);veu.classList.toggle("on",o);bt.setAttribute("aria-expanded",o);}
+bt.onclick=()=>abrir(!menu.classList.contains("aberto"));veu.onclick=()=>abrir(false);
+links.forEach(a=>a.addEventListener("click",()=>abrir(false)));
+addEventListener("keydown",e=>{if(e.key=="Escape")abrir(false);});
+subir.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+const alvos=links.map(a=>document.getElementById(a.getAttribute("href").slice(1)));
+function spy(){
+  const y=scrollY+150,h=document.documentElement.scrollHeight-innerHeight;let k=-1;
+  alvos.forEach((t,i)=>{if(t.getBoundingClientRect().top+scrollY<=y)k=i;});
+  if(scrollY>=h-4)k=alvos.length-1;
+  links.forEach((a,i)=>a.classList.toggle("ativo",i==k));
+  $("#progresso").style.width=(h>0?scrollY/h*100:0)+"%";subir.classList.toggle("on",scrollY>500);
+}
+addEventListener("scroll",spy,{passive:true});spy();
+
+/* ===== AMPLIAR FOTOS (lightbox) ===== */
+const lb=$("#lb"),lbi=lb.querySelector("img"),lbc=$("#lbc");let lista=[],pos=0;
+function mostrar(){const im=lista[pos];lbi.src=im.src;lbi.alt=im.alt;const f=im.closest("figure").querySelector("figcaption");lbc.textContent=f?f.textContent:"";
+  $("#lbp").style.display=$("#lbn").style.display=lista.length>1?"block":"none";}
+function fechar(){lb.classList.remove("on");}
+document.addEventListener("click",e=>{
+  const im=e.target.closest(".moldura img");if(!im)return;
+  const g=im.closest(".galeria")||im.closest(".bloco")||im.closest("figure").parentNode;
+  lista=[...g.querySelectorAll(".moldura img")];pos=lista.indexOf(im);mostrar();lb.classList.add("on");
+});
+const passo=d=>{pos=(pos+d+lista.length)%lista.length;mostrar();};
+$("#lbx").onclick=fechar;$("#lbp").onclick=()=>passo(-1);$("#lbn").onclick=()=>passo(1);
+lb.addEventListener("click",e=>{if(e.target==lb)fechar();});
+addEventListener("keydown",e=>{if(!lb.classList.contains("on"))return;if(e.key=="Escape")fechar();if(e.key=="ArrowLeft")passo(-1);if(e.key=="ArrowRight")passo(1);});
+</script>
+</body>
+</html>
