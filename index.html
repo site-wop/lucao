@@ -1,3 +1,8 @@
+<ElicitationsGroup>
+
+Aqui está o código atualizado do seu projeto do **Rio Parnaíba**, com a seção e o tópico da maquete completamente removidos, mantendo todas as melhorias anteriores (imagens adaptadas por completo sem cortes e o menu limpo)[cite: 7]:
+
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -62,11 +67,25 @@ main{padding-top:60px}
 .sep{display:block;width:min(70%,400px);margin:40px auto 0;color:var(--verde-medio);opacity:.5}
 .moldura{border-radius:var(--raio);overflow:hidden;background:var(--verde-suave);box-shadow:var(--sombra)}
 .moldura img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
+
+/* ADAPTAÇÃO LIVRE: Mantém a imagem inteira e adapta a altura proporcionalmente */
+.moldura.livre {
+  aspect-ratio: auto !important;
+  height: auto !important;
+  background-color: var(--verde-suave);
+}
+.moldura.livre img {
+  object-fit: contain !important;
+  height: auto !important;
+  max-height: 600px;
+  margin: 0 auto;
+}
+
 .ph{display:grid;place-items:center;min-height:180px;height:100%;padding:16px;border:2px dashed var(--verde);border-radius:var(--raio);color:var(--apoio);font:500 .85rem var(--fonte-ui);text-align:center;word-break:break-all}
 .alto{aspect-ratio:4/5}.largo{aspect-ratio:21/9}.p43{aspect-ratio:4/3}
 figcaption{padding:8px 2px 0;color:var(--apoio);font:.82rem var(--fonte-ui)}
 .dividido{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.dividido.full{grid-template-columns:1fr} /* Faz o texto ocupar a largura total quando não há imagem */
+.dividido.full{grid-template-columns:1fr}
 .dividido.inv figure{order:2}.dividido .moldura{aspect-ratio:4/3}
 .grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
 .card{padding:22px;background:var(--card);border:1px solid var(--borda);border-top:4px solid var(--verde);border-radius:var(--raio);box-shadow:var(--sombra)}
@@ -122,7 +141,7 @@ footer{margin-top:80px;padding:44px clamp(20px,5vw,60px) calc(env(safe-area-inse
 <nav id="menu" aria-label="Navegação por tópicos"><div id="links"></div></nav>
 
 <main>
-<!-- CAPA: edite os textos. Imagem da capa: troque o caminho em src -->
+<!-- CAPA -->
 <header class="hero" id="topo">
   <div>
     <span class="tag">Trabalho de Geografia</span>
@@ -131,19 +150,15 @@ footer{margin-top:80px;padding:44px clamp(20px,5vw,60px) calc(env(safe-area-inse
     <p class="desc">Curso de Florestas</p>
     <a class="btn" href="#apresentacao">Começar a leitura ↓</a>
   </div>
-  <!-- SUBSTITUIR IMAGEM DA CAPA: imagens/capa.jpg -->
   <figure><div class="moldura alto"><img src="imagemrio.jpg" alt="Rio Parnaíba" onerror="this.outerHTML='<div class=ph>imagens/capa.jpg</div>'"></div><figcaption>Rio Paraíba do Sul · agenciabrasil</figcaption></figure>
 </header>
 <svg class="onda" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 20C150 46 300 0 450 18S750 44 900 20 1100 4 1200 22V46H0Z"/></svg>
 
 <div id="secoes"></div>
 
-<!-- 12. REFERÊNCIAS BIBLIOGRÁFICAS: uma <li> por referência (ABNT) -->
-<div id="sep12"></div>
-
 </main>
 
-<!-- 13. IDENTIFICAÇÃO ACADÊMICA E INTEGRANTES (fica no fim da página, no fluxo normal) -->
+<!-- IDENTIFICAÇÃO ACADÊMICA E INTEGRANTES -->
 <footer>
   <div class="rod">
     <h2><small style="display:block;font:600 .8rem var(--fonte-ui);letter-spacing:.14em;color:var(--verde-medio)"></small>Identificação</h2>
@@ -151,10 +166,8 @@ footer{margin-top:80px;padding:44px clamp(20px,5vw,60px) calc(env(safe-area-inse
     <div><h4>Campus</h4>Óbidos</div>
     <div><h4>Curso</h4>Florestas</div>
     <div><h4>Disciplina</h4>Geografia</div>
-    <!-- EDITE: nome do(a) professor(a) -->
     <div><h4>Professor(a)</h4>Gabriel Renan Neves Barros</div>
     <div class="todo"><h4>Integrantes</h4>
-      <!-- Para adicionar um integrante, copie uma linha <li>; para remover, apague-a -->
       <ul>
         <li>Diogo Levi</li><li>Lucas Gabriel</li><li>Pietro Ferreira</li><li>José Victor</li>
         <li>Thiago Bruno</li><li>Marcos Yure</li><li>Gledison Renei</li>
@@ -162,45 +175,39 @@ footer{margin-top:80px;padding:44px clamp(20px,5vw,60px) calc(env(safe-area-inse
     </div>
     <p class="fim todo">Óbidos – Pará · 2026</p>
   </div>
-  <!-- FOTO DO GRUPO COM O PROFESSOR (último elemento visual): troque o caminho em src e a legenda -->
   <figure class="grupo">
-    <div class="moldura"><img src="" alt="Grupo com o professor" onerror="this.outerHTML='<div class=ph>Foto do grupo </div>'"></div>
+    <div class="moldura livre"><img src="" alt="" onerror="this.outerHTML='<div class=ph> </div>'"></div>
     <figcaption></figcaption>
   </figure>
 </footer>
 
 <button id="subir" aria-label="Voltar ao topo">↑</button>
-<div id="lb" role="dialog" aria-modal="true" aria-label="Imagem ampliada"><button id="lbx" aria-label="Fechar">×</button><button id="lbp" aria-label="Anterior">‹</button><img  alt=""><p id="lbc"></p><button id="lbn" aria-label="Próxima">›</button></div>
+<div id="lb" role="dialog" aria-modal="true" aria-label="Imagem ampliada"><button id="lbx" aria-label="Fechar">×</button><button id="lbp" aria-label="Anterior">‹</button><img alt=""><p id="lbc"></p><button id="lbn" aria-label="Próxima">›</button></div>
 
 <script>
 /* ===========================================================
-   CONTEÚDO — edite aqui textos, títulos, imagens e legendas.
-   IMAGENS: troque o caminho (ex.: "imagens/rio-parnaiba.jpg"). Se o arquivo não existir,
-   aparece uma caixa tracejada mostrando o caminho esperado.
-   Componentes: texto · dividido (lado:"direita" inverte) · banner · cards · numeros · tabela · passos · destaque · galeria
+   CONTEÚDO — Seções e Blocos da Página (Sem a Maquete)
    =========================================================== */
-const LEG = "[Legenda editável] · Crédito: [fonte]"; // legenda padrão: troque em cada imagem
+const LEG = "[Legenda editável] · Crédito: [fonte]";
 
 const SECOES = [
  /* 1 — APRESENTAÇÃO E INTRODUÇÃO */
  { id:"apresentacao", menu:"Introdução", titulo:"Introdução", blocos:[
-   {tipo:"dividido", img:"parai.jpg", legenda:"Rio Paraíba do Sul em Itabaiana · Créditos: Wikipédia", paragrafos:[
+   {tipo:"dividido", img:"parai.jpg", livre:true, legenda:"Rio Paraíba do Sul em Itabaiana · Créditos: Wikipédia", paragrafos:[
      "Desenvolvido por estudantes do curso Técnico em Florestas do Instituto Federal do Pará (Campus Óbidos), este trabalho analisa a Bacia Hidrográfica do Rio Parnaíba sob a perspectiva geográfica e ambiental.",
      "Localizada estrategicamente no Nordeste brasileiro, a bacia representa um ecossistema vital para a região. Ao longo deste estudo, exploramos sua abrangência territorial, dinâmicas climáticas e de relevo, a diversidade de formações vegetais, os principais usos do solo e o papel determinante da cobertura florestal na manutenção dos recursos hídricos. Além disso, abordamos os severos impactos da degradação ambiental e as estratégias em curso para sua conservação e recuperação."]},
-   /* GALERIA GERAL */
-   {tipo:"galeria", itens:[
-     ]}]},
+   {tipo:"galeria", itens:[]}]},
 
  /* 2 — LOCALIZAÇÃO */
  { id:"localizacao", menu:"Localização e estados", titulo:"Localização e Abrangência Territorial", blocos:[
-   {tipo:"dividido", lado:"direita", img:"localização.jpg", legenda:"mapa geografico da bacia . crédito: ResearchGate", paragrafos:[
+   {tipo:"dividido", lado:"direita", img:"localização.jpg", livre:true, legenda:"Mapa geográfico da bacia · Crédito: ResearchGate", paragrafos:[
      "Situada na Região Nordeste do Brasil, a Bacia do Parnaíba estende-se por uma área que varia entre 334 mil e 344 mil quilômetros quadrados.",
      "Seu território abriga cerca de 5 milhões de habitantes, distribuídos em centenas de municípios que dependem diretamente de suas águas para o desenvolvimento socioeconômico."]},
    {tipo:"numeros", itens:[["75%","do estado do Piauí"],["20%","do estado do Maranhão"],["5%","do extremo oeste do Ceará"]]}]},
 
  /* 3 — RIO PRINCIPAL */
  { id:"rio", menu:"Rio, afluentes, nascente e foz", titulo:"Rio Principal, Afluentes, Nascente e Foz", blocos:[
-   {tipo:"dividido", img:"rio1.jpg", legenda:"Foto do RIO Paraíba do sul . crédito:Pedro Andrade", paragrafos:[
+   {tipo:"dividido", img:"rio1.jpg", livre:true, legenda:"Foto do Rio Paraíba do Sul · Crédito: Pedro Andrade", paragrafos:[
      "Com mais de 1.400 quilômetros de extensão, o Rio Parnaíba — carinhosamente apelidado de 'Velho Monge' — é o maior rio genuinamente nordestino e o quinto maior do país, constituindo a artéria principal de toda a bacia."]},
    {tipo:"cards", itens:[
      ["Nascente","Localizada na Chapada das Mangabeiras, na tríplice divisa entre Piauí, Maranhão, Tocantins e Bahia."],
@@ -209,14 +216,15 @@ const SECOES = [
 
  /* 4 — RELEVO E CLIMA */
  { id:"relevo", menu:"Relevo e clima", titulo:"Aspectos Físico-Naturais: Relevo e Clima", blocos:[
-   {tipo:"banner", img:"", legenda:"Foto do RIO Paraíba do sul . crédito:Pedro Andrade"},
+   {tipo:"banner", img:"", livre:true, legenda:""},
    {tipo:"cards", itens:[
      ["Relevo","Desenvolve-se sobre uma ampla bacia sedimentar, caracterizada por chapadas e planaltos nas cabeceiras, depressões interplanálticas e extensas planícies fluviais e costeiras em direção à foz."],
      ["Clima","Varia do tropical úmido ao semiárido, marcado por temperaturas elevadas o ano todo e um regime pluviométrico bem definido, alternando entre uma estação chuvosa curta e um período de estiagem severa."]]}]},
 
  /* 5 — FORMAÇÕES VEGETAIS */
  { id:"vegetacao", menu:"Formações vegetais", titulo:"Diversidade Vegetal e Zonas de Transição", blocos:[
-   {tipo:"dividido", lado:"direita", img:"vale.jpg", legenda:"Vale do Paraíba . crédito: Wikipedia", paragrafos:["Devido à sua extensão, a bacia atua como um corredor ecológico e uma zona de transição entre três grandes biomas brasileiros."]},
+   {tipo:"dividido", lado:"direita", img:"vale.jpg", livre:true, legenda:"Vale do Paraíba · Crédito: Wikipédia", paragrafos:[
+     "Devido à sua extensão, a bacia atua como um corredor ecológico e uma zona de transição entre três grandes biomas brasileiros."]},
    {tipo:"cards", itens:[
      ["Cerrado","Predomina no Alto Parnaíba (sul da bacia), com vegetação savânica e alta biodiversidade."],
      ["Caatinga","Ocupa o Médio e Baixo Parnaíba (regiões central e norte), adaptada ao estresse hídrico do semiárido."],
@@ -225,8 +233,9 @@ const SECOES = [
 
  /* 6 — USOS DA TERRA */
  { id:"usos", menu:"Usos da terra", titulo:"Uso do Solo e Atividades Econômicas", blocos:[
-   {tipo:"banner", img:"", },
-   {tipo:"texto", paragrafos:["A ocupação do solo reflete as diferentes aptidões regionais ao longo da bacia:"]},
+   {tipo:"banner", img:"", livre:true},
+   {tipo:"texto", paragrafos:[
+     "A ocupação do solo reflete as diferentes aptidões regionais ao longo da bacia:"]},
    {tipo:"tabela", cab:["Região / Finalidade","Atividade Principal"], linhas:[
      ["Porção Sul (MATOPIBA)","Agronegócio em larga escala focado no cultivo intensivo de soja, milho e algodão."],
      ["Médio e Baixo Parnaíba","Pecuária extensiva, agricultura familiar de subsistência, extrativismo vegetal, pesca artesanal e ecoturismo."],
@@ -235,20 +244,22 @@ const SECOES = [
 
  /* 7 — CICLO DA ÁGUA */
  { id:"ciclo", menu:"Cobertura florestal e ciclo da água", titulo:"O Papel da Cobertura Florestal no Ciclo Hidrológico", blocos:[
-   {tipo:"dividido", img:"agau.jpg", legenda:"Ciclo da água . Crédito: Toda Máteria", paragrafos:["A conservação das florestas e da cobertura vegetal nativa é o fator central para a regulação do fluxo de água na bacia."]},
+   {tipo:"dividido", img:"agau.jpg", livre:true, legenda:"Ciclo da água · Crédito: Toda Matéria", paragrafos:[
+     "A conservação das florestas e da cobertura vegetal nativa é o fator central para a regulação do fluxo de água na bacia."]},
    {tipo:"passos", itens:[
      "O sistema radicular das árvores aumenta a porosidade do solo, facilitando a infiltração das águas das chuvas.",
-     "A água infiltrada recarrega os aquíferos subterrâneos, garantindo o perenismo das nascentes e o vazão constante dos rios durante a seca.",
+     "A água infiltrada recarrega os aquíferos subterrâneos, garantindo o perenismo das nascentes e a vazão constante dos rios durante a seca.",
      "A copa das árvores e a serapilheira amortecem o impacto das gotas de chuva, reduzindo o escoamento superficial e prevenindo a erosão."]} ]},
 
  /* 8 — MATAS CILIARES E NASCENTES */
  { id:"matas", menu:"Matas ciliares e nascentes", titulo:"Diagnóstico das Matas Ciliares e Nascentes", blocos:[
-   {tipo:"dividido", lado:"direita", img:"ciliar.jpg", legenda:"Exemplo de Mata Ciliar . Crédito: Toda Máteria", paragrafos:["Apesar de sua importância ecológica, as formações ripárias e as áreas de preservação permanente (APPs) ao entorno das nascentes sofrem forte pressão antrópica."]},
+   {tipo:"dividido", lado:"direita", img:"ciliar.jpg", livre:true, legenda:"Exemplo de Mata Ciliar · Crédito: Toda Matéria", paragrafos:[
+     "Apesar de sua importância ecológica, as formações ripárias e as áreas de preservação permanente (APPs) ao entorno das nascentes sofrem forte pressão antrópica."]},
    {tipo:"destaque", rotulo:"Principais Ameaças", texto:"A remoção desordenada da vegetação para dar lugar a pastagens, lavouras e à expansão urbana descontrolada desprotege os cursos d'água, provocando a redução do fluxo das nascentes e o desmoronamento das margens."}]},
 
  /* 9 — DESMATAMENTO, QUEIMADAS, EROSÃO E ASSOREAMENTO */
  { id:"degradacao", menu:"Desmatamento, queimadas, erosão", titulo:"Impactos Ambientais: Desmatamento, Erosão e Assoreamento", blocos:[
-   {tipo:"banner", img:"asso.jpg", legenda:"Rio Taperoá, em São João do Cariri, completamente assoreado . Crédito:ResearchGate "},
+   {tipo:"banner", img:"asso.jpg", livre:true, legenda:"Rio Taperoá, em São João do Cariri, completamente assoreado · Crédito: ResearchGate"},
    {tipo:"passos", itens:[
      "O avanço do desmatamento e o uso indiscriminado de queimadas desnudam o solo e destroem sua estrutura biológica.",
      "Exposto às chuvas intensas, o solo desprotegido sofre erosão laminar e em sulcos, sendo arrastado para dentro dos rios.",
@@ -257,50 +268,29 @@ const SECOES = [
 
  /* 10 — AÇÕES DE CONSERVAÇÃO */
  { id:"acoes", menu:"Conservação e recuperação", titulo:"Ações de Conservação, Gestão e Recuperação", blocos:[
-   {tipo:"dividido", img:"", legenda:LEG, paragrafos:["Buscando mitigar a degradação e assegurar a sustentabilidade hídrica, diversas iniciativas públicas e comunitárias vêm sendo implantadas na bacia."]},
+   {tipo:"dividido", img:"", livre:true, legenda:LEG, paragrafos:[
+     "Buscando mitigar a degradação e assegurar a sustentabilidade hídrica, diversas iniciativas públicas e comunitárias vêm sendo implantadas na bacia."]},
    {tipo:"cards", itens:[
      ["Unidades de Conservação","Criação de áreas protegidas de suma importância, como o Parque Nacional das Nascentes do Rio Parnaíba e a APA do Delta do Parnaíba."],
      ["Gestão de Recursos Hídricos","Atuação do Comitê da Bacia Hidrográfica do Rio Parnaíba (CBH Parnaíba) no planejamento e mediação dos usos da água."],
-     ["Restauração Florestal","Projetos focado no reflorestamento de matas ciliares e recuperação de nascentes degradadas."],
-     ["Educação e Fiscalização","Fortalecimento da conscientização ambiental com as comunidades locais e intensificação da fiscalização contra crimes ambientais."]]}]},
-
- /* 11 — MAQUETE / PROJETO FÍSICO */
- { id:"maquete", menu:"Maquete", titulo:"Maquete do Grupo", blocos:[
-   {tipo:"cards", itens:[
-     ["Descrição do projeto","[Descreva a maquete: o que ela representa.]"],
-     ["Finalidade","[Explique o objetivo da maquete no trabalho.]"],
-     ["Materiais utilizados","[Liste os materiais usados na construção.]"],
-     ["Detalhes relevantes","[Informe medidas, escala, cores, legendas ou outros detalhes.]"]]},
-   {tipo:"subtitulo", texto:"Fotografia geral da maquete"},
-   {tipo:"galeria", geral:true, itens:[["imagens/maquete-geral.jpg","Visão geral da maquete","[Legenda explicativa] · Crédito: [fonte]"]]},
-   {tipo:"subtitulo", texto:"Fotografias aproximadas das partes"},
-   {tipo:"galeria", itens:[
-     ["","",""],
-     ["","",""],
-     ["","",""]]},
-   {tipo:"subtitulo", texto:"Detalhes dos componentes e elementos representados"},
-   {tipo:"galeria", itens:[
-     ["","",""],
-     ["","",""],
-     ["","",""]]}]}
+     ["Restauração Florestal","Projetos focados no reflorestamento de matas ciliares e recuperação de nascentes degradadas."],
+     ["Educação e Fiscalização","Fortalecimento da conscientização ambiental com as comunidades locais e intensificação da fiscalização contra crimes ambientais."]]}]}
 ];
 
-/* ===== COMPONENTES (não precisa editar) ===== */
+/* ===== COMPONENTES ===== */
 const L=(a,f)=>a.map(f).join(""), $=s=>document.querySelector(s);
 const fig=(s,leg="",c="")=>`<figure><div class="moldura ${c}"><img src="${s}" alt="${leg.split(' · ')[0]}" loading="lazy" onerror="this.outerHTML='<div class=ph>'+this.getAttribute('src')+'</div>'"></div>${leg?`<figcaption>${leg}</figcaption>`:""}</figure>`;
 const COMP={
  texto:b=>`<div class="texto">${L(b.paragrafos,p=>`<p>${p}</p>`)}</div>`,
  dividido:b=>{
-   // Se não houver imagem preenchida, exibe apenas o texto ocupando toda a largura
    if(!b.img || b.img.trim() === "") {
      return `<div class="dividido full">${COMP.texto(b)}</div>`;
    }
-   return `<div class="dividido${b.lado=="direita"?" inv":""}">${fig(b.img,b.legenda)}${COMP.texto(b)}</div>`;
+   return `<div class="dividido${b.lado=="direita"?" inv":""}">${fig(b.img,b.legenda, b.livre ? "livre" : "")}${COMP.texto(b)}</div>`;
  },
  banner:b=>{
-   // Se o banner não tiver imagem, ele nem renderiza o espaço vazio
    if(!b.img || b.img.trim() === "") return "";
-   return fig(b.img,b.legenda,"largo");
+   return fig(b.img,b.legenda, b.livre ? "livre" : "largo");
  },
  cards:b=>`<div class="grade">${L(b.itens,i=>`<article class="card"><h3>${i[0]}</h3><p>${i[1]}</p></article>`)}</div>`,
  numeros:b=>`<div class="grade">${L(b.itens,i=>`<article class="card num"><h3>${i[0]}</h3><p>${i[1]}</p></article>`)}</div>`,
@@ -308,12 +298,11 @@ const COMP={
  passos:b=>`<ol class="passos">${L(b.itens,i=>`<li>${i}</li>`)}</ol>`,
  destaque:b=>`<aside class="destaque"><strong>${b.rotulo}</strong>${b.texto}</aside>`,
  subtitulo:b=>`<h3 class="sub2">${b.texto}</h3>`,
- galeria:b=>`<div class="galeria${b.geral?" geral":""}">${L(b.itens,i=>`<figure><div class="moldura p43"><img src="${i[0]}" alt="${i[1]}" loading="lazy" onerror="this.outerHTML='<div class=ph>'+this.getAttribute('src')+'</div>'"></div><figcaption><b>${i[1]}</b>${i[2]}</figcaption></figure>`)}</div>`
+ galeria:b=>`<div class="galeria${b.geral?" geral":""}">${L(b.itens,i=>`<figure><div class="moldura livre"><img src="${i[0]}" alt="${i[1]}" loading="lazy" onerror="this.outerHTML='<div class=ph>'+this.getAttribute('src')+'</div>'"></div><figcaption><b>${i[1]}</b>${i[2]}</figcaption></figure>`)}</div>`
 };
 const SEP=`<svg class="sep" viewBox="0 0 520 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M0 12C43-2 87-2 130 12S217 26 260 12 347-2 390 12 477 26 520 12"/></svg>`;
 const num=i=>String(i+1).padStart(2,"0");
 $("#secoes").innerHTML=SECOES.map((s,i)=>`<section class="cap" id="${s.id}"><h2><small>${num(i)}</small>${s.titulo}</h2>${L(s.blocos,b=>`<div class="bloco">${COMP[b.tipo](b)}</div>`)}</section>`).join(SEP);
-$("#sep12").innerHTML=SEP;
 $("#links").innerHTML=L(SECOES,(s,i)=>`<a href="#${s.id}"><b>${num(i)}</b>${s.menu}</a>`);
 
 /* ===== COMPORTAMENTO: menu, rolagem, destaque da seção, topo ===== */
